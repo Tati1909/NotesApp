@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
 
-    //Запрос SQLite возвращает все столбцы из item таблицы, упорядоченные в порядке возрастания
-    @Query("SELECT * from notes ORDER BY title ASC")
+    //Запрос SQLite возвращает все столбцы из item таблицы, упорядоченные в порядке возрастания даты создания
+    @Query("SELECT * from notes ORDER BY creation DESC")
     fun getItems(): Flow<List<NoteEntity>>
 
     //SQLite для извлечения определенного элемента из таблицы элементов на основе заданного id

@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/subject_text_view"
+            android:id="@+id/title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -29,7 +29,18 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/note_item_description_size"
-            tools:text="описание заметки" />
+            tools:text="Описание заметки" />
+
+        <TextView
+            android:id="@+id/date_of_creation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/date_of_creation"
+            android:padding="@dimen/padding_default"
+            android:singleLine="true"
+            android:textSize="@dimen/size_text_default" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

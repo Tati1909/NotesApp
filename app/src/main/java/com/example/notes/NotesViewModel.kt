@@ -6,7 +6,11 @@ import com.example.notes.room.NoteEntity
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
-    //Функция getItems() возвращает Flow. Чтобы использовать данные как LiveData значение, используйте asLiveData()функцию.
+
+    //Переменная allItems в виде LiveData хранит в себе данные базы
+    //Функция getItems() возвращает Flow поток с нашими данными Entity из базы данных,
+    //упорядоченные в порядке возрастания.
+    // Чтобы использовать данные как LiveData значение, используем asLiveData() функцию.
     val allItems: LiveData<List<NoteEntity>> = noteDao.getItems().asLiveData()
 
     //Добавляем в базу данных новый продукт
@@ -49,14 +53,14 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
     // То есть 'Арбуз' конвертируется в @ColumnInfo(name = "name")
     //                                 val itemName: String
     private fun getNewItemEntry(
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        titleNote: String,
+        descriptionNote: String,
+        creationNote: String
     ): NoteEntity {
         return NoteEntity(
-            title = itemName,
-            description = itemPrice,
-            creationDate = itemCount.toLong()
+            title = titleNote,
+            description = descriptionNote,
+            creationDate = creationNote.toLong()
         )
     }
 /*

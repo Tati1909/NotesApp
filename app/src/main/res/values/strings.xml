@@ -19,4 +19,5 @@
     <string name="no">Нет</string>
     <string name="item_name_req">Название</string>
     <string name="save_action">Сохранить</string>
+    <string name="add_new_item">Добавить новую заметку</string>
 </resources>
