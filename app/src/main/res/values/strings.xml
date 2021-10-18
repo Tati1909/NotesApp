@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="note_title">Название заметки</string>
+    <string name="note_description">Описание заметки</string>
+    <string name="date_of_creation">Дата создания</string>
+    <string name="settings_menu">Настройки</string>
+    <string name="display_menu">Вид отображения</string>
+    <string name="folders_menu">Папки</string>
+    <string name="button_plus">+</string>
+    <string name="todo">TODO</string>
+    <string name="home">Home</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="notification">Notification</string>
+    <string name="new_note">Новая заметка</string>
+    <string name="create_note_title">Новая заметка</string>
+    <string name="edit_note_title">Редактирование</string>
+    <string name="delete">Удалить</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="item_name_req">Название</string>
+    <string name="save_action">Сохранить</string>
+</resources>
