@@ -20,4 +20,5 @@
     <string name="item_name_req">Название</string>
     <string name="save_action">Сохранить</string>
     <string name="add_new_item">Добавить новую заметку</string>
+    <string name="item_detail_fragment_title">Детали</string>
 </resources>

@@ -14,7 +14,7 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
     val allItems: LiveData<List<NoteEntity>> = noteDao.getItems().asLiveData()
 
     //Добавляем в базу данных новый продукт
-    //Функция будет вызываться из фрагмента пользовательского интерфейса
+    //Функция будет вызываться из фрагмента AddNoteFragment
     fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
         val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
         insertItem(newItem)

@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.notes.databinding.FragmentItemDetailBinding
+import com.example.notes.databinding.FragmentDetailItemBinding
 
 /**
- * [ItemDetailFragment] displays the details of the selected item.
+ * [DetailNoteFragment] displays the details of the selected item.
  */
-class ItemDetailFragment : Fragment() {
+class DetailNoteFragment : Fragment() {
 
-    private var _binding: FragmentItemDetailBinding? = null
+    private var _binding: FragmentDetailItemBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +20,7 @@ class ItemDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentItemDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailItemBinding.inflate(inflater, container, false)
         return binding.root
     }
 

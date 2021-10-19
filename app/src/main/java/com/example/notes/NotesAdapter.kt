@@ -50,6 +50,7 @@ class NotesAdapter(private val onItemClicked: (NoteEntity) -> Unit) :
         holder.itemView.setOnClickListener {
             onItemClicked(current)
         }
+        //привязываем данные к выбранному элементу списка
         holder.bind(current)
     }
 

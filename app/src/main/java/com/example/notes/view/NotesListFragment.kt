@@ -13,6 +13,7 @@ import com.example.notes.NotesViewModel
 import com.example.notes.NotesViewModelFactory
 import com.example.notes.R
 import com.example.notes.databinding.FragmentNotesListBinding
+import com.example.notes.room.NoteEntity
 import com.example.notes.room.NotesApplication
 
 /**
@@ -45,7 +46,11 @@ class NotesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //Добавили обработчик щелчка к RecyclerView для навигации в к Item Details
-        val adapter = NotesAdapter {
+        //Передаем нашу noteEntity и переходим на DetailNoteFragment по выбранному id элемента
+        val adapter = NotesAdapter { noteEntity: NoteEntity ->
+            val action =
+                NotesListFragmentDirections.actionNotesListFragmentToDetailNoteFragment(noteEntity.id)
+            this@NotesListFragment.findNavController().navigate(action)
         }
 
         binding.recyclerView.adapter = adapter
