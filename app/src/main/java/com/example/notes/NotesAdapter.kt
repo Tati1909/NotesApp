@@ -10,9 +10,8 @@ import com.example.notes.room.NoteEntity
 import com.example.notes.room.getFormattedData
 
 //см 5.1.2.8
-//Функция onItemClicked будет использоваться для обработки навигации, когда элемент выбран на первом экране,
-//а для второго экрана вы просто передадите пустую функцию.
-//onItemClicked принимает данные Entity
+//Функция onItemClicked будет использоваться для обработки навигации, когда выбран элемент списка
+//onItemClicked принимает данные Entity, т.к. будем переходить по id нашей Entity
 class NotesAdapter(private val onItemClicked: (NoteEntity) -> Unit) :
     ListAdapter<NoteEntity, NotesAdapter.ViewHolder>(DiffCallback) {
 

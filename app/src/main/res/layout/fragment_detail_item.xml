@@ -1,48 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/keyboard_apple"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/padding_default"
-    tools:showIn=".MainActivity">
+    android:background="@drawable/keyboard_apple"
+    android:layout_margin="@dimen/margin"
+    tools:context=".view.DetailNoteFragment">
 
-    <EditText
+    <TextView
         android:id="@+id/note_title"
+        style="@style/Widget.Inventory.TextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_marginStart="@dimen/margin_between_elements"
+        android:layout_marginTop="@dimen/padding_default"
+        android:layout_marginEnd="@dimen/margin_between_elements"
+        android:background="@color/grey_300"
+        android:textStyle="bold"
         android:padding="@dimen/padding_default"
-        android:hint="@string/note_title"
-        android:singleLine="true"
-        android:textSize="@dimen/size_text_default"
-        android:textStyle="bold" />
+        app:layout_constraintBottom_toTopOf="@+id/note_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Screwdrivers" />
 
-    <EditText
+    <TextView
         android:id="@+id/note_description"
+        style="@style/Widget.Inventory.TextView"
+        android:layout_marginStart="@dimen/margin_between_elements"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
         android:padding="@dimen/padding_default"
+        android:layout_marginEnd="@dimen/margin_between_elements"
+        android:background="@color/grey_300"
         android:hint="@string/note_description"
-        android:singleLine="true"
-        android:textSize="@dimen/size_text_default" />
+        app:layout_constraintBottom_toTopOf="@+id/date_of_creation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_title" />
 
-    <EditText
+    <TextView
         android:id="@+id/date_of_creation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        style="@style/Widget.Inventory.TextView"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/margin_between_elements"
         android:padding="@dimen/padding_default"
-        android:hint="@string/date_of_creation"
-        android:singleLine="true"
-        android:textSize="@dimen/size_text_default" />
+        android:layout_marginEnd="@dimen/margin_between_elements"
+        android:background="@color/grey_300"
+        android:hint="Дата создания"
+        app:layout_constraintBottom_toTopOf="@+id/delete_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_description" />
 
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/delete_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сохранить" />
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="@dimen/padding_default"
+        android:layout_marginEnd="60dp"
+        android:text="Удалить"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_of_creation" />
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_between_elements"
+        android:layout_marginBottom="@dimen/margin_between_elements"
+        android:contentDescription="@string/edit_item"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

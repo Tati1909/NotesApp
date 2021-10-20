@@ -63,15 +63,16 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
             creationDate = creationNote.toLong()
         )
     }
-/*
-    //Когда мы нажимаем на элемент списка, то переходим на детальное отображение данных(fragment_item_detail.xml)
-    //Именно это отображение данных будет хранить в себе retrieveItem, которую мы вызываем в ItemDetailFragment
+
+    //Когда мы нажимаем на элемент списка, то переходим на детальное отображение заметки(fragment_detail_item.xml)
+    //Именно это отображение заметки будет хранить в себе retrieveItem, которую мы вызываем в ItemDetailFragment
     //retrieveItem - получить элемент (по Id)
     fun retrieveItem(id: Int): LiveData<NoteEntity> {
         return noteDao.getItem(id).asLiveData()
         //Функция возвращает Flow. Чтобы использовать Flow как функцию LiveData вызываем asLiveData()
         //Т. е. asLiveData конвертирует itemDao.getItem(id) в LiveData<Item>
     }
+/*
     //Продать продукт(уменьшаем товар на единицу)
     //Про copy см.5.2.2.5
     fun sellItem(itemEntity: NoteEntity) {
