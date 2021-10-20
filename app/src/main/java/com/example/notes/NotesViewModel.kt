@@ -14,9 +14,9 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
     val allItems: LiveData<List<NoteEntity>> = noteDao.getItems().asLiveData()
 
     //Добавляем в базу данных новый продукт
-    //Функция будет вызываться из фрагмента пользовательского интерфейса
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    //Функция будет вызываться из фрагмента AddNoteFragment
+    fun addNewItem(itemName: String, itemDescription: String, dataOfCreation: Long) {
+        val newItem = getNewItemEntry(itemName, itemDescription, dataOfCreation)
         insertItem(newItem)
     }
     //Обратите внимание, что вы не использовали viewModelScope.launch для addNewItem(), но это необходимо только в insertItem(),
@@ -42,8 +42,8 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
 //На этом шаге вы добавите функцию, чтобы проверить, не является ли текст в текстовых полях пустым.
 //Вы будете использовать эту функцию для проверки ввода данных пользователем перед добавлением или обновлением объекта в базе данных.
 //Эта проверка должна выполняться во ViewModel фрагменте, а не во фрагменте.
-    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+    fun isEntryValid(itemName: String, itemDescription: String): Boolean {
+        if (itemName.isBlank() || itemDescription.isBlank()) {
             return false
         }
         return true
@@ -55,23 +55,24 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
     private fun getNewItemEntry(
         titleNote: String,
         descriptionNote: String,
-        creationNote: String
+        dataOfCreation: Long
     ): NoteEntity {
         return NoteEntity(
             title = titleNote,
             description = descriptionNote,
-            creationDate = creationNote.toLong()
+            creationDate = dataOfCreation
         )
     }
-/*
-    //Когда мы нажимаем на элемент списка, то переходим на детальное отображение данных(fragment_item_detail.xml)
-    //Именно это отображение данных будет хранить в себе retrieveItem, которую мы вызываем в ItemDetailFragment
+
+    //Когда мы нажимаем на элемент списка, то переходим на детальное отображение заметки(fragment_detail_item.xml)
+    //Именно это отображение заметки будет хранить в себе retrieveItem, которую мы вызываем в ItemDetailFragment
     //retrieveItem - получить элемент (по Id)
     fun retrieveItem(id: Int): LiveData<NoteEntity> {
         return noteDao.getItem(id).asLiveData()
         //Функция возвращает Flow. Чтобы использовать Flow как функцию LiveData вызываем asLiveData()
         //Т. е. asLiveData конвертирует itemDao.getItem(id) в LiveData<Item>
     }
+/*
     //Продать продукт(уменьшаем товар на единицу)
     //Про copy см.5.2.2.5
     fun sellItem(itemEntity: NoteEntity) {

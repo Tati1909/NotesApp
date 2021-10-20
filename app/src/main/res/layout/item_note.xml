@@ -24,22 +24,22 @@
             tools:text="Я заголовок" />
 
         <TextView
-            android:id="@+id/description_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="@dimen/note_item_description_size"
-            tools:text="Описание заметки" />
-
-        <TextView
             android:id="@+id/date_of_creation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="@string/date_of_creation"
-            android:padding="@dimen/padding_default"
             android:singleLine="true"
-            android:textSize="@dimen/size_text_default" />
+            android:textSize="@dimen/size_text_small" />
+
+        <TextView
+            android:id="@+id/description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/note_item_description_size"
+            android:layout_marginTop="@dimen/padding_default"
+            tools:text="Описание заметки" />
 
     </LinearLayout>
 

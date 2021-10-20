@@ -6,6 +6,7 @@
     <dimen name="margin_between_elements">8dp</dimen>
     <dimen name="text_size_double">32sp</dimen>
     <dimen name="size_text_default">16sp</dimen>
+    <dimen name="size_text_small">10sp</dimen>
     <dimen name="note_item_subject_text_size">16sp</dimen>
     <dimen name="note_card_radius">16dp</dimen>
     <dimen name="note_item_description_size">14sp</dimen>

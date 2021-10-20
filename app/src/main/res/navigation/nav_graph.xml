@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_notesListFragment_to_addItemFragment4"
             app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_notesListFragment_to_detailNoteFragment"
+            app:destination="@id/detailNoteFragment" />
     </fragment>
 
     <fragment
@@ -35,12 +38,15 @@
     </fragment>
 
     <fragment
-        android:id="@+id/addItemFragment"
-        android:name="com.example.notes.view.AddNoteFragment"
-        android:label="{title}"
-        tools:layout="@layout/fragment_add_item">
+        android:id="@+id/detailNoteFragment"
+        android:name="com.example.notes.view.DetailNoteFragment"
+        android:label="@string/item_detail_fragment_title"
+        tools:layout="@layout/fragment_detail_item">
         <argument
-            android:name="title"
-            app:argType="string" />
+            android:name="item_id"
+            app:argType="integer" />
+
     </fragment>
+
+
 </navigation>
