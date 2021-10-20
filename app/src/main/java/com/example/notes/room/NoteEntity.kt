@@ -3,7 +3,7 @@ package com.example.notes.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.text.DateFormat
+import java.util.*
 
 @Entity(tableName = "notes")
 data class NoteEntity(
@@ -18,5 +18,5 @@ data class NoteEntity(
 )
 
 // отформатируем дату создания заметки в строку формата валюты с пом.  функции расширения getFormattedPrice()
-fun NoteEntity.getFormattedData(): String =
-    DateFormat.getDateTimeInstance().format(creationDate)
+fun NoteEntity.getFormattedData(): Date =
+    Calendar.getInstance().time

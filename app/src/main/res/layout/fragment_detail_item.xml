@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/keyboard_apple"
+    android:background="@color/brown_50"
     android:layout_margin="@dimen/margin"
     tools:context=".view.DetailNoteFragment">
 
@@ -33,24 +33,9 @@
         android:layout_marginEnd="@dimen/margin_between_elements"
         android:background="@color/grey_300"
         android:hint="@string/note_description"
-        app:layout_constraintBottom_toTopOf="@+id/date_of_creation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/note_title" />
-
-    <TextView
-        android:id="@+id/date_of_creation"
-        style="@style/Widget.Inventory.TextView"
-        android:layout_width="0dp"
-        android:layout_marginStart="@dimen/margin_between_elements"
-        android:padding="@dimen/padding_default"
-        android:layout_marginEnd="@dimen/margin_between_elements"
-        android:background="@color/grey_300"
-        android:hint="Дата создания"
-        app:layout_constraintBottom_toTopOf="@+id/delete_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_description" />
 
     <Button
         android:id="@+id/delete_button"
@@ -62,7 +47,7 @@
         android:text="Удалить"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_of_creation" />
+        app:layout_constraintTop_toBottomOf="@+id/note_description" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/edit_button"

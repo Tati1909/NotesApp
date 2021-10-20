@@ -12,7 +12,6 @@ import com.example.notes.NotesViewModelFactory
 import com.example.notes.databinding.FragmentDetailItemBinding
 import com.example.notes.room.NoteEntity
 import com.example.notes.room.NotesApplication
-import com.example.notes.room.getFormattedData
 
 /**
  * [DetailNoteFragment] displays the details of the selected item.
@@ -81,7 +80,6 @@ class DetailNoteFragment : Fragment() {
         binding.apply {
             noteTitle.text = noteEntity.title
             noteDescription.text = noteEntity.description
-            dateOfCreation.text = noteEntity.getFormattedData()
             //слушатель на кнопку удалить
             //deleteButton.setOnClickListener { showConfirmationDialog() }
             //слушатель на кнопку редактировать

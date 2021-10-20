@@ -13,6 +13,7 @@ import com.example.notes.NotesViewModelFactory
 import com.example.notes.databinding.FragmentAddItemBinding
 import com.example.notes.room.NoteEntity
 import com.example.notes.room.NotesApplication
+import java.util.*
 
 class AddNoteFragment : Fragment() {
 
@@ -50,8 +51,7 @@ class AddNoteFragment : Fragment() {
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.noteTitle.text.toString(),
-            binding.noteDescription.text.toString(),
-            binding.dateOfCreation.text.toString()
+            binding.noteDescription.text.toString()
         )
     }
 
@@ -61,7 +61,7 @@ class AddNoteFragment : Fragment() {
             viewModel.addNewItem(
                 binding.noteTitle.text.toString(),
                 binding.noteDescription.text.toString(),
-                binding.dateOfCreation.text.toString(),
+                dataOfCreation = Calendar.getInstance().timeInMillis
             )
             val action = AddNoteFragmentDirections.actionAddItemFragmentToItemListFragment()
             //импортируем import androidx.navigation.fragment.findNavController

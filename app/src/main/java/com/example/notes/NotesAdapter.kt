@@ -24,7 +24,7 @@ class NotesAdapter(private val onItemClicked: (NoteEntity) -> Unit) :
                 titleTextView.text = itemEntity.title
                 //Получите цену в денежном формате с помощью getFormattedPrice() функции расширения
                 descriptionTextView.text = itemEntity.description
-                dateOfCreation.text = itemEntity.getFormattedData()
+                dateOfCreation.text = itemEntity.getFormattedData().toString()
             }
         }
 

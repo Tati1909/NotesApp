@@ -15,8 +15,8 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     //Добавляем в базу данных новый продукт
     //Функция будет вызываться из фрагмента AddNoteFragment
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    fun addNewItem(itemName: String, itemDescription: String, dataOfCreation: Long) {
+        val newItem = getNewItemEntry(itemName, itemDescription, dataOfCreation)
         insertItem(newItem)
     }
     //Обратите внимание, что вы не использовали viewModelScope.launch для addNewItem(), но это необходимо только в insertItem(),
@@ -42,8 +42,8 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
 //На этом шаге вы добавите функцию, чтобы проверить, не является ли текст в текстовых полях пустым.
 //Вы будете использовать эту функцию для проверки ввода данных пользователем перед добавлением или обновлением объекта в базе данных.
 //Эта проверка должна выполняться во ViewModel фрагменте, а не во фрагменте.
-    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+    fun isEntryValid(itemName: String, itemDescription: String): Boolean {
+        if (itemName.isBlank() || itemDescription.isBlank()) {
             return false
         }
         return true
@@ -55,12 +55,12 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
     private fun getNewItemEntry(
         titleNote: String,
         descriptionNote: String,
-        creationNote: String
+        dataOfCreation: Long
     ): NoteEntity {
         return NoteEntity(
             title = titleNote,
             description = descriptionNote,
-            creationDate = creationNote.toLong()
+            creationDate = dataOfCreation
         )
     }
 
