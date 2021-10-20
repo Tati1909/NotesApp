@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/brown_50"
-    android:layout_margin="@dimen/margin"
     tools:context=".view.DetailNoteFragment">
 
     <TextView
@@ -15,7 +14,6 @@
         android:layout_marginStart="@dimen/margin_between_elements"
         android:layout_marginTop="@dimen/padding_default"
         android:layout_marginEnd="@dimen/margin_between_elements"
-        android:background="@color/grey_300"
         android:textStyle="bold"
         android:padding="@dimen/padding_default"
         app:layout_constraintBottom_toTopOf="@+id/note_description"
@@ -31,7 +29,6 @@
         android:layout_width="match_parent"
         android:padding="@dimen/padding_default"
         android:layout_marginEnd="@dimen/margin_between_elements"
-        android:background="@color/grey_300"
         android:hint="@string/note_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
