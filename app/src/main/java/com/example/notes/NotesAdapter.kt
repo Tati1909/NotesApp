@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.databinding.ItemNoteBinding
 import com.example.notes.room.NoteEntity
-import com.example.notes.room.getFormattedData
+import java.text.SimpleDateFormat
+import java.util.*
 
 //см 5.1.2.8
 //Функция onItemClicked будет использоваться для обработки навигации, когда выбран элемент списка
@@ -24,10 +25,13 @@ class NotesAdapter(private val onItemClicked: (NoteEntity) -> Unit) :
                 titleTextView.text = itemEntity.title
                 //Получите цену в денежном формате с помощью getFormattedPrice() функции расширения
                 descriptionTextView.text = itemEntity.description
-                dateOfCreation.text = itemEntity.getFormattedData().toString()
+                // В строке шаблона E означает название дня недели, и выполняется синтаксический анализ
+                //как « Вт, 10 декабря »
+                dateOfCreation.text = SimpleDateFormat(
+                    "E MMM d", Locale.getDefault()
+                ).format(Calendar.getInstance().time).toString()
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

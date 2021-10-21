@@ -13,6 +13,7 @@ import com.example.notes.NotesViewModelFactory
 import com.example.notes.databinding.FragmentAddItemBinding
 import com.example.notes.room.NoteEntity
 import com.example.notes.room.NotesApplication
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddNoteFragment : Fragment() {
@@ -61,7 +62,9 @@ class AddNoteFragment : Fragment() {
             viewModel.addNewItem(
                 binding.noteTitle.text.toString(),
                 binding.noteDescription.text.toString(),
-                dataOfCreation = Calendar.getInstance().timeInMillis
+                dataOfCreation = SimpleDateFormat(
+                    "E MMM d", Locale.getDefault()
+                ).format(Calendar.getInstance().time).toLong()
             )
             val action = AddNoteFragmentDirections.actionAddItemFragmentToItemListFragment()
             //импортируем import androidx.navigation.fragment.findNavController

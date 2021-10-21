@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.notes.NotesViewModel
 import com.example.notes.NotesViewModelFactory
+import com.example.notes.R
 import com.example.notes.databinding.FragmentDetailItemBinding
 import com.example.notes.room.NoteEntity
 import com.example.notes.room.NotesApplication
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * [DetailNoteFragment] displays the details of the selected item.
@@ -66,6 +69,31 @@ class DetailNoteFragment : Fragment() {
     }
 
     /**
+    Этот метод отображает диалоговое окно с предупреждением, чтобы получить подтверждение пользователя
+    перед удалением заметки, и вызывает deleteItem() функцию при нажатии положительной кнопки
+     */
+    private fun showConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(android.R.string.dialog_alert_title))
+            .setMessage(getString(R.string.delete_question))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.no)) { _, _ -> }
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                deleteItem()
+            }
+            .show()
+    }
+
+    /**
+    метод для вызова функции удаления заметки
+    и обработки навигации.
+     */
+    private fun deleteItem() {
+        viewModel.deleteItem(noteEntity)
+        findNavController().navigateUp()
+    }
+
+    /**
      * Called when fragment is destroyed.
      */
     override fun onDestroyView() {
@@ -73,15 +101,15 @@ class DetailNoteFragment : Fragment() {
         _binding = null
     }
 
-    //функция для установки названия заметки, описания и даты создания
+    //функция для установки названия заметки и описания
     //такая же функция есть в NotesAdapter
-    //И слушатель для кнопок
+    //И слушатели для кнопок
     private fun bind(noteEntity: NoteEntity) {
         binding.apply {
             noteTitle.text = noteEntity.title
             noteDescription.text = noteEntity.description
             //слушатель на кнопку удалить
-            //deleteButton.setOnClickListener { showConfirmationDialog() }
+            deleteButton.setOnClickListener { showConfirmationDialog() }
             //слушатель на кнопку редактировать
             //переходим к экрану редактирования
             //editButton.setOnClickListener { editItem() }
