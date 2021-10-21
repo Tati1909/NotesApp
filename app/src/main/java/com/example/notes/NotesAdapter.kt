@@ -28,8 +28,8 @@ class NotesAdapter(private val onItemClicked: (NoteEntity) -> Unit) :
                 // В строке шаблона E означает название дня недели, и выполняется синтаксический анализ
                 //как « Вт, 10 декабря »
                 dateOfCreation.text = SimpleDateFormat(
-                    "E MMM d", Locale.getDefault()
-                ).format(Calendar.getInstance().time).toString()
+                    "E MMM d   h:mm", Locale.getDefault()
+                ).format(itemEntity.creationDate)
             }
         }
     }
