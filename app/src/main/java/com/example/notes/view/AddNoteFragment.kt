@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -61,10 +62,27 @@ class AddNoteFragment : Fragment() {
             viewModel.addNewItem(
                 binding.noteTitle.text.toString(),
                 binding.noteDescription.text.toString(),
+                //получаем текущее время и сохраняем его в базу в формате Long
                 dataOfCreation = Calendar.getInstance().timeInMillis
             )
             val action = AddNoteFragmentDirections.actionAddItemFragmentToItemListFragment()
             //импортируем import androidx.navigation.fragment.findNavController
+            findNavController().navigate(action)
+        }
+    }
+
+    //Эту функцию вызываем после нажатия кнопки 'сохранить', когда редактировали заметку.
+    //if условие для проверки ввода пользователя(если текстовые поля заполнены,
+    //то обновляем наши новые данные с помощью DAO метода suspend fun update(item: Item))
+    //Используем itemId из аргументов навигации для передачи его в AddItemFragment(!но фрагмент редактирования)
+    private fun updateNote() {
+        if (isEntryValid()) {
+            viewModel.updateNote(
+                this@AddNoteFragment.navigationArgs.noteId,
+                this@AddNoteFragment.binding.noteTitle.text.toString(),
+                this@AddNoteFragment.binding.noteDescription.text.toString()
+            )
+            val action = AddNoteFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
         }
     }
@@ -76,9 +94,38 @@ class AddNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //кнопка сохранить при добавлении нового продукта
-        binding.saveButton.setOnClickListener {
-            addNewItem()
+        //получаем  itemId из аргументов навигации(ложили в ItemDetailFragment в методе editItem)
+        val id = navigationArgs.noteId
+
+        //Добавьте if-else блок с условием, чтобы проверить, id больше ли нуля,
+        //и переместите прослушиватель нажатия кнопки « Сохранить» в else блок.
+        //Внутри if блока извлеките объект с помощью id и добавьте к нему наблюдателя.
+        //Внутри наблюдателя получите выбранный продукт(item) и вызовите bind() передавая данные этого продукта в текстовые поля фрагмента.
+        //Полная функция предназначена для копирования и вставки. Это просто и легко понять;
+        if (id > 0) {
+            viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) { selectedItem ->
+                noteEntity = selectedItem
+                bind(noteEntity)
+            }
+        } else {
+            //кнопка сохранить при добавлении новой заметки
+            binding.saveButton.setOnClickListener {
+                addNewItem()
+            }
+        }
+    }
+
+    //эта функция нужна для РЕДАКТИРОВАНИЯ заметки.
+    //функция для привязки текстовых полей c деталями Entity
+    //Когда мы переходим на экран редактирования, то текстовые поля должны быть заполнены
+    //Реализация bind()функции очень похожа на то, что вы делали ранее в ItemDetailFragment
+    private fun bind(itemEntity: NoteEntity) {
+
+        binding.apply {
+            noteTitle.setText(itemEntity.title, TextView.BufferType.SPANNABLE)
+            noteDescription.setText(itemEntity.description, TextView.BufferType.SPANNABLE)
+            //обработка кнопки сохранить после ее редактирования
+            saveButton.setOnClickListener { updateNote() }
         }
     }
 }

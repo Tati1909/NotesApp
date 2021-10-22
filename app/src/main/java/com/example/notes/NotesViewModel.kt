@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.notes.room.NoteDao
 import com.example.notes.room.NoteEntity
 import kotlinx.coroutines.launch
+import java.util.*
 
 class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
 
@@ -31,10 +32,11 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
         }
     }
 
-    //функция для обновления Entity(при продаже и редактировании продукта)
-    private fun updateItem(itemEntity: NoteEntity) {
+    //функция для обновления Entity(при удалении продукта
+    // и при сохранении после редактирования заметки)
+    private fun updateNoteAfterDelete(noteEntity: NoteEntity) {
         viewModelScope.launch {
-            noteDao.update(itemEntity)
+            noteDao.update(noteEntity)
         }
     }
 
@@ -72,57 +74,43 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
         //Функция возвращает Flow. Чтобы использовать Flow как функцию LiveData вызываем asLiveData()
         //Т. е. asLiveData конвертирует itemDao.getItem(id) в LiveData<Item>
     }
-/*
-    //Продать продукт(уменьшаем товар на единицу)
-    //Про copy см.5.2.2.5
-    fun sellItem(itemEntity: NoteEntity) {
-        if (itemEntity.quantityInStock > 0) {
-            val newItem = itemEntity.copy(quantityInStock = itemEntity.quantityInStock - 1)
-            //обновляем Entity в базе данных
-            updateItem(newItem)
-        }
-    }
-    //Мы можем отключить кнопку «Продать» , когда нет товаров для продажи.
-    //Возвращает false, если товары закончились
-    fun isStockAvailable(itemEntity: NoteEntity): Boolean {
-        return (itemEntity.quantityInStock > 0)
-    }
+
     // функция для удаления объекта из базы данных
-    fun deleteItem(itemEntity: NoteEntity) {
+    fun deleteItem(noteEntity: NoteEntity) {
         viewModelScope.launch {
-            itemDao.delete(itemEntity)
+            noteDao.delete(noteEntity)
         }
     }
+
     //5.2.2.5
-    //Функция нужна для обновления Entity
-    //Для сохранения продукта после его редактирования
-    //getUpdatedItemEntry() конвертирует входящие параметры в данные Entity и переводит в нужный тип
+    //Функция нужна для обновления Entity (для сохранения заметки после ее редактирования)
+    //getUpdatedItemEntry() конвертирует входящие параметры в данные Entity, переводит в нужный тип
+    //и возвращает обновленную заметку
     private fun getUpdatedItemEntry(
         itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        noteName: String,
+        noteDescription: String,
     ): NoteEntity {
         return NoteEntity(
             id = itemId,
-            itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            title = noteName,
+            description = noteDescription,
+            creationDate = Calendar.getInstance().timeInMillis
         )
     }
-    //Обновляем Entity
-    //Для сохранения продукта после его редактирования
-    //Функция public
-    fun updateItem(
+
+    //Обновляем отредактированную заметку в базе данных
+    //Для сохранения заметки после ее редактирования
+    fun updateNote(
         itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        noteName: String,
+        noteDescription: String
     ) {
-        //getUpdatedItemEntry() передает информацию о данных сущности
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
-        updateItem(updatedItem)
-    }*/
+        //getUpdatedItemEntry() возвращает обновленную заметку
+        val updatedNote = getUpdatedItemEntry(itemId, noteName, noteDescription)
+        //И мы эту заметку обновляем в базе данных с помощью метода Dao (noteDao.update(noteEntity))
+        updateNoteAfterDelete(updatedNote)
+    }
 }
 
 //InventoryViewModelFactory класс для создания InventoryViewModel экземпляра

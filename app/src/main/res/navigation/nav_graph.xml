@@ -27,7 +27,7 @@
             android:name="title"
             app:argType="string" />
         <argument
-            android:name="item_id"
+            android:name="note_id"
             android:defaultValue="-1"
             app:argType="integer" />
         <action
@@ -43,9 +43,11 @@
         android:label="@string/item_detail_fragment_title"
         tools:layout="@layout/fragment_detail_item">
         <argument
-            android:name="item_id"
+            android:name="note_id"
             app:argType="integer" />
-
+        <action
+            android:id="@+id/action_detailNoteFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
     </fragment>
 
 
