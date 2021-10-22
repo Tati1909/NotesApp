@@ -94,6 +94,21 @@ class DetailNoteFragment : Fragment() {
     }
 
     /**
+    метод для вызова функции редактирования заметки
+    и обработки навигации.
+     */
+    private fun editItem() {
+        //Переходим на AddItemFragment, передавая параметры нового заголовка('Редактировать') и id Entity
+        //в AddNoteFragment. Т. е. AddNoteFragment используем повторно, только меняем заголовок.
+        //Саму кнопку слушаем в методе bind()
+        val action = DetailNoteFragmentDirections.actionDetailNoteFragmentToAddNoteFragment(
+            getString(R.string.edit_note_title),
+            noteEntity.id
+        )
+        this.findNavController().navigate(action)
+    }
+
+    /**
      * Called when fragment is destroyed.
      */
     override fun onDestroyView() {
@@ -112,7 +127,7 @@ class DetailNoteFragment : Fragment() {
             deleteButton.setOnClickListener { showConfirmationDialog() }
             //слушатель на кнопку редактировать
             //переходим к экрану редактирования
-            //editButton.setOnClickListener { editItem() }
+            editButton.setOnClickListener { editItem() }
         }
     }
 

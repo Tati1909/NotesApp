@@ -45,7 +45,9 @@
         <argument
             android:name="item_id"
             app:argType="integer" />
-
+        <action
+            android:id="@+id/action_detailNoteFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
     </fragment>
 
 
