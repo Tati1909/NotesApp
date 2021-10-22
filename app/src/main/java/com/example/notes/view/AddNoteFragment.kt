@@ -71,6 +71,22 @@ class AddNoteFragment : Fragment() {
         }
     }
 
+    //Эту функцию вызываем после нажатия кнопки 'сохранить', когда редактировали заметку.
+    //if условие для проверки ввода пользователя(если текстовые поля заполнены,
+    //то обновляем наши новые данные с помощью DAO метода suspend fun update(item: Item))
+    //Используем itemId из аргументов навигации для передачи его в AddItemFragment(!но фрагмент редактирования)
+    private fun updateNote() {
+        if (isEntryValid()) {
+            viewModel.updateNote(
+                this@AddNoteFragment.navigationArgs.noteId,
+                this@AddNoteFragment.binding.noteTitle.text.toString(),
+                this@AddNoteFragment.binding.noteDescription.text.toString()
+            )
+            val action = AddNoteFragmentDirections.actionAddItemFragmentToItemListFragment()
+            findNavController().navigate(action)
+        }
+    }
+
     //Вызывается при создании View.
     //      * Аргумент itemId Navigation определяет элемент редактирования или добавление нового элемента.
     //      * Если itemId положительный, этот метод извлекает информацию из базы данных и
@@ -109,7 +125,7 @@ class AddNoteFragment : Fragment() {
             noteTitle.setText(itemEntity.title, TextView.BufferType.SPANNABLE)
             noteDescription.setText(itemEntity.description, TextView.BufferType.SPANNABLE)
             //обработка кнопки сохранить после ее редактирования
-            //saveButton.setOnClickListener { updateItem() }
+            saveButton.setOnClickListener { updateNote() }
         }
     }
 }

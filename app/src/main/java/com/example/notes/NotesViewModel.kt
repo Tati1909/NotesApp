@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.notes.room.NoteDao
 import com.example.notes.room.NoteEntity
 import kotlinx.coroutines.launch
+import java.util.*
 
 class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
 
@@ -31,8 +32,9 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
         }
     }
 
-    //функция для обновления Entity(при удалении продукта)
-    private fun updateNote(noteEntity: NoteEntity) {
+    //функция для обновления Entity(при удалении продукта
+    // и при сохранении после редактирования заметки)
+    private fun updateNoteAfterDelete(noteEntity: NoteEntity) {
         viewModelScope.launch {
             noteDao.update(noteEntity)
         }
@@ -80,36 +82,35 @@ class NotesViewModel(private val noteDao: NoteDao) : ViewModel() {
         }
     }
 
-    /*    //5.2.2.5
-     //Функция нужна для обновления Entity
-     //Для сохранения продукта после его редактирования
-     //getUpdatedItemEntry() конвертирует входящие параметры в данные Entity и переводит в нужный тип
-     private fun getUpdatedItemEntry(
-         itemId: Int,
-         itemName: String,
-         itemPrice: String,
-         itemCount: String
-     ): NoteEntity {
-         return NoteEntity(
-             id = itemId,
-             itemName = itemName,
-             itemPrice = itemPrice.toDouble(),
-             quantityInStock = itemCount.toInt()
-         )
-     }
-     //Обновляем Entity
-     //Для сохранения продукта после его редактирования
-     //Функция public
-     fun updateItem(
-         itemId: Int,
-         itemName: String,
-         itemPrice: String,
-         itemCount: String
-     ) {
-         //getUpdatedItemEntry() передает информацию о данных сущности
-         val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
-         updateItem(updatedItem)
-     }*/
+    //5.2.2.5
+    //Функция нужна для обновления Entity (для сохранения заметки после ее редактирования)
+    //getUpdatedItemEntry() конвертирует входящие параметры в данные Entity, переводит в нужный тип
+    //и возвращает обновленную заметку
+    private fun getUpdatedItemEntry(
+        itemId: Int,
+        noteName: String,
+        noteDescription: String,
+    ): NoteEntity {
+        return NoteEntity(
+            id = itemId,
+            title = noteName,
+            description = noteDescription,
+            creationDate = Calendar.getInstance().timeInMillis
+        )
+    }
+
+    //Обновляем отредактированную заметку в базе данных
+    //Для сохранения заметки после ее редактирования
+    fun updateNote(
+        itemId: Int,
+        noteName: String,
+        noteDescription: String
+    ) {
+        //getUpdatedItemEntry() возвращает обновленную заметку
+        val updatedNote = getUpdatedItemEntry(itemId, noteName, noteDescription)
+        //И мы эту заметку обновляем в базе данных с помощью метода Dao (noteDao.update(noteEntity))
+        updateNoteAfterDelete(updatedNote)
+    }
 }
 
 //InventoryViewModelFactory класс для создания InventoryViewModel экземпляра
