@@ -56,7 +56,7 @@ class DetailNoteFragment : Fragment() {
         //Это будет наш !!!!!аргумент в навигации к DetailFragment из NotesListFragment
         //(этот аргумент мы просто будем передавать в DetailFragment -
         // мы будем использовать эту id переменную для получения сведений об элементе)
-        val id = navigationArgs.itemId
+        val id = navigationArgs.noteId
 
         //Присоединяем наблюдателя к возвращаемому значению Item(Entity) из метода retrieveItem
         viewModel.retrieveItem(id)

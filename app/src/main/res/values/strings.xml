@@ -12,7 +12,6 @@
     <string name="dashboard">Dashboard</string>
     <string name="notification">Notification</string>
     <string name="new_note">Новая заметка</string>
-    <string name="create_note_title">Новая заметка</string>
     <string name="edit_note_title">Редактирование</string>
     <string name="delete">Удалить</string>
     <string name="yes">Да</string>

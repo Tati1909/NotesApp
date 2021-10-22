@@ -65,19 +65,13 @@ class NotesListFragment : Fragment() {
             }
         }
 
-        binding.createANoteButton.setOnClickListener {
+        binding.createNewNoteFab.setOnClickListener {
             val action = NotesListFragmentDirections.actionNotesListFragmentToAddItemFragment4(
                 getString(R.string.new_note)
             )
             this.findNavController().navigate(action)
         }
-
-
-        //binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
-
-        //указываем списку, что нужно использовать адаптер
-        //создаем новый объект Adapter(new не указываем)
-        // binding.recyclerView.adapter = NotesAdapter(requireContext(), affirmationData)
     }
 
 }
+
